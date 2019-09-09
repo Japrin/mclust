@@ -3642,7 +3642,7 @@ mstepE <- function(data, z, prior = NULL, warn = NULL, ...)
   sigmasq <- temp[[2]]
   pro <- temp[[3]]
   WARNING <- NULL
-  if(sigmasq > signif(.Machine$double.xmax, 6)) {
+  if(any(is.na(sigmasq)) || sigmasq > signif(.Machine$double.xmax, 6)) {
     WARNING <- "cannot compute M-step"
     if(warn) warning(WARNING)
     pro[] <- mu[] <- sigmasq <- NA
@@ -6427,7 +6427,7 @@ mstepV <- function(data, z, prior = NULL, warn = NULL, ...)
   sigmasq <- temp[[2]]
   pro <- temp[[3]]
   WARNING <- NULL
-  if(any(sigmasq > signif(.Machine$double.xmax, 6))) {
+  if(any(is.na(sigmasq)) || any(sigmasq > signif(.Machine$double.xmax, 6))) {
     WARNING <- "cannot compute M-step"
     if(warn) warning(WARNING)
     mu[] <- pro[] <- sigmasq[] <- z[] <- loglik <- NA
